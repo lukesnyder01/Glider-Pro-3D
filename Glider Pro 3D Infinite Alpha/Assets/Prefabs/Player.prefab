@@ -165,9 +165,6 @@ MonoBehaviour:
   player: {fileID: 6150597286450573299}
   moveSpeed: 2
   rotateSpeed: 200
-  fallSpeed: 0.6
-  riseSpeed: 1.2
-  verticalAcceleration: 6
 --- !u!114 &366967025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +207,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6150597286450573299}
   gliderModel: {fileID: 3136867657207711080}
+  sideTiltScale: 20
+  forwardTiltScale: 12
+  tiltSpeed: 15
 --- !u!1 &7882093275648891285
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4338922708494216512, guid: d6bbd774390e7954e8d62f30e05a272b, type: 3}
       propertyPath: m_VersionIndex
-      value: 10027
+      value: 10042
       objectReference: {fileID: 0}
     - target: {fileID: 4338922708494216512, guid: d6bbd774390e7954e8d62f30e05a272b, type: 3}
       propertyPath: m_Faces.Array.size

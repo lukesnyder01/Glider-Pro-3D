@@ -7,9 +7,9 @@ public class GliderTilt : MonoBehaviour
     public Transform player;
     public Transform gliderModel;
 
-    private float tiltXScale = 12f;
-    private float tiltZScale = 10f;
-    private float tiltSpeed = 10f;
+    private float sideTiltScale = 30f;
+    private float forwardTiltScale = 20f;
+    private float tiltSpeed = 15f;
 
     private float distanceFromGround;
 
@@ -46,8 +46,8 @@ public class GliderTilt : MonoBehaviour
         float tiltModifier = Mathf.Clamp(distanceFromGround - 0.2f, 0, 1);
         tiltModifier = Mathf.Clamp(distanceFromGround * 2, 0, 1);
 
-        float tiltX = Input.GetAxis("Vertical") * tiltZScale * tiltModifier;
-        float tiltZ = Input.GetAxis("Horizontal") * -tiltXScale * tiltModifier;
+        float tiltX = Input.GetAxis("Vertical") * forwardTiltScale * tiltModifier;
+        float tiltZ = Input.GetAxis("Horizontal") * -sideTiltScale * tiltModifier;
 
         Vector3 tiltVector = new Vector3(tiltX, player.transform.eulerAngles.y, tiltZ);
 
