@@ -5,10 +5,7 @@ using UnityEngine;
 public class GliderMove : MonoBehaviour
 {
     public Transform player;
-    public Transform gliderModel;
 
-    public float tiltScale = 10f;
-    public float tiltSpeed = 10f;
 
     private CharacterController controller;
     private Rigidbody rb;
@@ -16,93 +13,68 @@ public class GliderMove : MonoBehaviour
     public float moveSpeed = 10f;
     public float rotateSpeed = 90f;
 
-    public float fallSpeed = 1f;
-    public float riseSpeed = 3f;
+    private float fallSpeed = 0.6f;
+    private float riseSpeed = 1.2f;
+    private float verticalAcceleration = 6f;
 
     private Vector3 forwardMoveVector;
-    private Vector3 _EulerAngleVelocity;
 
-    public float verticalAcceleration;
+    private float inputX;
+    private float inputZ;
 
     private bool isFalling = true;
+
     private Vector3 verticalSpeed;
+    private Vector3 targetPlayerRotation;
 
 
-    //public Transform[] raycastPositions;
-    private float distanceFromGround;
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        //controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+
     void Update()
+    {
+        HandlePlayerInput();
+    }
+
+
+    void FixedUpdate()
     {
         SetVerticalSpeed();
 
-        FindDistanceFromGround();
+        SetTargetTranslation();
 
-        TiltGlider();
-
-        forwardMoveVector = transform.forward * Input.GetAxis("Vertical") * moveSpeed;
-        float currentPlayerYRot = player.eulerAngles.y;
-
-        float rotateAmount = Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
-        Vector3 targetPlayerRotation = new Vector3(0, currentPlayerYRot += rotateAmount, 0);
-
-
+        SetTargetRotation();
 
         rb.rotation = Quaternion.Euler(targetPlayerRotation);
-
         rb.velocity = forwardMoveVector + verticalSpeed;
-
     }
 
-    void FindDistanceFromGround()
+
+    private void HandlePlayerInput()
     {
-        RaycastHit hit;
-
-        float castRadius = 0.2f;
-        Vector3 castDirection = -Vector3.up;
-        float castDist = 10f;
-
-        if (Physics.SphereCast(transform.position, castRadius, castDirection, out hit, castDist))
-        {
-            distanceFromGround = hit.distance;
-        }
-
-
+        inputZ = Input.GetAxis("Vertical");
+        inputX = Input.GetAxis("Horizontal");
     }
 
 
-
-    void TiltGlider()
+    private void SetTargetTranslation()
     {
-
-
-        float tiltModifier = Mathf.Clamp(distanceFromGround - 0.2f, 0, 1);
-        tiltModifier = Mathf.Clamp(distanceFromGround * 2, 0, 1);
-
-
-        float tiltX = Input.GetAxis("Vertical") * tiltScale * tiltModifier;
-        float tiltZ = Input.GetAxis("Horizontal") * -tiltScale * tiltModifier;
-
-        Vector3 tiltVector = new Vector3(tiltX, player.transform.eulerAngles.y, tiltZ);
-
-        Quaternion targetRotation = Quaternion.Euler(tiltVector);
-
-        gliderModel.rotation = Quaternion.Slerp(gliderModel.rotation, targetRotation, Time.deltaTime * tiltSpeed);
-
-
+        forwardMoveVector = transform.forward * inputZ * moveSpeed;
     }
 
 
+    private void SetTargetRotation()
+    {
+        float currentPlayerYRot = player.eulerAngles.y;
+        float rotateAmount = inputX * rotateSpeed * Time.fixedDeltaTime;
+        targetPlayerRotation = new Vector3(0, currentPlayerYRot += rotateAmount, 0);
+    }
 
-    void SetVerticalSpeed()
+
+    private void SetVerticalSpeed()
     {
         if (isFalling)
         {
@@ -115,8 +87,7 @@ public class GliderMove : MonoBehaviour
                 verticalSpeed.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
             }
         }
-
-        if (!isFalling)
+        else if (!isFalling)
         {
             if (verticalSpeed.y >= riseSpeed)
             {
@@ -127,7 +98,6 @@ public class GliderMove : MonoBehaviour
                 verticalSpeed.y += riseSpeed * Time.deltaTime * verticalAcceleration;
             }
         }
-
     }
     
 
@@ -149,7 +119,6 @@ public class GliderMove : MonoBehaviour
     }
 
 
-
     void OnCollisionEnter(Collision other)
     {
         if (!other.gameObject.CompareTag("Player"))
@@ -157,7 +126,6 @@ public class GliderMove : MonoBehaviour
             //KillGlider();
         }
     }
-
 
 
     void KillGlider()

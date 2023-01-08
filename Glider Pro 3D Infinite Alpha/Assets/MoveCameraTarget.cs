@@ -4,44 +4,45 @@ using UnityEngine;
 
 public class MoveCameraTarget : MonoBehaviour
 {
-
     public Transform cameraIdealPosition;
     public Transform cameraTarget;
 
+    [SerializeField]
+    private float targetMoveSpeed = 20f;
 
-    private Vector3 cameraTargetStartPosition;
-    public float castDist = 1f;
-    public float castRadius = 0.2f;
+    private float castDist = 1f;
+    private float castRadius = 0.1f;
     private Vector3 castDirection;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        cameraTargetStartPosition = cameraIdealPosition.localPosition;
-        cameraTarget.position = cameraTargetStartPosition;
-        castDist = Vector3.Distance(transform.position, cameraIdealPosition.position);
+    private Vector3 hitPosition;
 
-        
+
+    void Awake()
+    {
+        cameraTarget.position = cameraIdealPosition.position;
+        castDist = Vector3.Distance(transform.position, cameraIdealPosition.position);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        castDirection = (cameraIdealPosition.position -transform.position).normalized;
+        castDirection = (cameraIdealPosition.position - transform.position).normalized;
 
         RaycastHit hit;
 
         if (Physics.SphereCast(transform.position, castRadius, castDirection, out hit, castDist))
         {
-
-
-            cameraTarget.position = hit.point - (castDirection * (castRadius/2));
+            hitPosition = hit.point - (castDirection * (castRadius / 2));
         }
         else
         {
-            cameraTarget.localPosition = cameraTargetStartPosition;
+            hitPosition = cameraIdealPosition.position;
         }
-
-        
     }
+
+
+    void Update()
+    {
+        cameraTarget.position = Vector3.Lerp(cameraTarget.position, hitPosition, Time.deltaTime * targetMoveSpeed);
+    }
+
 }
