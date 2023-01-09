@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3521c38af5609e347bdae4636f8c0035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 3, y: 4}
+  size: {x: 5, y: 6}
   startPos: 8
   roomPrefab: {fileID: 6957077994415311479, guid: bb4c4d55ef0206d4a81595b97f16178b, type: 3}
   offset: {x: 7, y: 7}
