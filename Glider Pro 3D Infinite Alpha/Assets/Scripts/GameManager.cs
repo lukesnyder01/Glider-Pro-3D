@@ -7,6 +7,17 @@ public class GameManager : MonoBehaviour
 
     public int targetFrameRate = 144;
 
+    public class Room
+    {
+        public Material roomMaterial;
+        public bool isInteriorRoom;
+        public int[,,] roomPosition;
+    }
+
+
+    public Dictionary<int[,,], Room> roomDict;
+
+
     void Awake()
     {
         QualitySettings.vSyncCount = 0;
