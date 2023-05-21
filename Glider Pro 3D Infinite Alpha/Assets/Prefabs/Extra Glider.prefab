@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2545918749608722416}
   - component: {fileID: 2545918749608722417}
   - component: {fileID: 2545918749608722418}
-  - component: {fileID: 274049565634804518}
+  - component: {fileID: 10985089940818951}
   m_Layer: 0
   m_Name: Extra Glider
   m_TagString: Untagged
@@ -448,7 +448,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &274049565634804518
+--- !u!114 &10985089940818951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -457,7 +457,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2545918749608722419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c220bb0c50c35c40bfb7c3bbf0954de, type: 3}
+  m_Script: {fileID: 11500000, guid: 31ade3540323a174bb655faad3d2a63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prizeType: 0
+  collected: 0
+  player: {fileID: 0}
+  playerStats: {fileID: 0}
+  collectSound: {fileID: 8300000, guid: 68f7c6700ada7ba4fb3bddd4967577e2, type: 3}

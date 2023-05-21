@@ -17,10 +17,12 @@ public class CameraFollowController : MonoBehaviour
     {
         currentRotation = transform.rotation;
 
-        LookAtPlayer();
+        if (player != null)
+        {
+            LookAtPlayer();
 
-        MoveCamera();
-
+            MoveCamera();
+        }
 
     }
 

@@ -8,8 +8,8 @@ public class GliderTilt : MonoBehaviour
     public Transform gliderModel;
 
     private float sideTiltScale = 30f;
-    private float forwardTiltScale = 20f;
-    private float tiltSpeed = 15f;
+    private float forwardTiltScale = 15f;
+    private float tiltSpeed = 12f;
 
     private float distanceFromGround;
 
