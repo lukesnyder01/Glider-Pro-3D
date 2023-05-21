@@ -114,6 +114,16 @@ public class GliderController : MonoBehaviour
         }
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("AirColumn"))
+        {
+            isFalling = false;
+        }
+    }
+
+
+
 
     void OnTriggerExit(Collider other)
     {
