@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5453869047480113970}
   - component: {fileID: 5453869047480113971}
   m_Layer: 0
-  m_Name: Filing Cabinet 1
+  m_Name: Filing Cabinet
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
