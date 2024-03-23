@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GliderController : MonoBehaviour
 {
+    public Vector3 respawnPosition;
+    public Quaternion respawnRotation;
+
     public Transform player;
 
 
@@ -30,6 +33,9 @@ public class GliderController : MonoBehaviour
 
     void Start()
     {
+        respawnPosition = transform.position;
+        respawnRotation = transform.rotation;
+
         rb = GetComponent<Rigidbody>();
     }
 
@@ -145,7 +151,13 @@ public class GliderController : MonoBehaviour
 
     void KillGlider()
     {
-        Destroy(gameObject);
+        rb.velocity = Vector3.zero;
+        rb.rotation = respawnRotation;
+        transform.position = respawnPosition;
+
+
+
+        //Destroy(gameObject);
     }
 
 
