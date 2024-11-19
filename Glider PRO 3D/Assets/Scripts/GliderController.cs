@@ -16,8 +16,8 @@ public class GliderController : MonoBehaviour
     public float moveSpeed = 10f;
     public float rotateSpeed = 90f;
 
-    private float fallSpeed = 0.6f;
-    private float riseSpeed = 1.2f;
+    private float fallSpeed = 0.5f;
+    private float riseSpeed = 1.1f;
     private float verticalAcceleration = 6f;
 
     private Vector3 forwardMoveVector;
