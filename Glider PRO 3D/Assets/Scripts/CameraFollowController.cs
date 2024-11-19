@@ -20,12 +20,9 @@ public class CameraFollowController : MonoBehaviour
         if (player != null)
         {
             LookAtPlayer();
-
             MoveCamera();
         }
-
     }
-
 
     private void LookAtPlayer()
     {
@@ -33,11 +30,8 @@ public class CameraFollowController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(currentRotation, targetLookRotation, Time.deltaTime * cameraRotationSpeed);
     }
 
-
     private void MoveCamera()
     {
-        //transform.position = cameraMoveTarget.position;
-
         transform.position = Vector3.Lerp(transform.position, cameraMoveTarget.position, Time.deltaTime * cameraMoveSpeed);
     }
 }
