@@ -13,7 +13,7 @@ public class VerticalBillboard : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 dirToCamera = mainCamera.position - transform.position;
+        Vector3 dirToCamera = transform.position - mainCamera.position;
         dirToCamera = dirToCamera.normalized;
         dirToCamera.y = 0;
         transform.rotation = Quaternion.LookRotation(dirToCamera);
