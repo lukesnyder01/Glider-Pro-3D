@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2545918749608722417}
   - component: {fileID: 2545918749608722418}
   - component: {fileID: 10985089940818951}
+  - component: {fileID: 6920237309899109201}
   m_Layer: 0
   m_Name: Extra Glider
   m_TagString: Untagged
@@ -349,7 +350,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1782
+  m_VersionIndex: 1785
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -443,7 +444,7 @@ MeshCollider:
   m_GameObject: {fileID: 2545918749608722419}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -464,3 +465,16 @@ MonoBehaviour:
   player: {fileID: 0}
   playerStats: {fileID: 0}
   collectSound: {fileID: 8300000, guid: 68f7c6700ada7ba4fb3bddd4967577e2, type: 3}
+--- !u!135 &6920237309899109201
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545918749608722419}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 2.1693675e-30, y: 0.07964678, z: 0.00000008195638}

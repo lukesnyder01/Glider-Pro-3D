@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class VerticalBillboard : MonoBehaviour
 {
-    private Vector3 originalRotation;
+    private Transform mainCamera;
 
-    private void Awake()
+    void Start()
     {
-        originalRotation = transform.rotation.eulerAngles;
+        mainCamera = Camera.main.transform;
     }
 
     private void LateUpdate()
     {
-        transform.LookAt(Camera.main.transform.position, Vector3.up);
-        Vector3 rotation = transform.rotation.eulerAngles;
-        rotation.y = originalRotation.y;
-        transform.rotation = Quaternion.Euler(rotation);
+        Vector3 dirToCamera = mainCamera.position - transform.position;
+        dirToCamera = dirToCamera.normalized;
+        dirToCamera.y = 0;
+        transform.rotation = Quaternion.LookRotation(dirToCamera);
+
+
+
     }
-
-
 }
