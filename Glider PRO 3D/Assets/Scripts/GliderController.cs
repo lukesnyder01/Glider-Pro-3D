@@ -25,10 +25,9 @@ public class GliderController : MonoBehaviour
     private float inputX;
     private float inputZ;
 
-    private bool isFalling = true;
     private bool inBlower = false;
 
-    private Vector3 verticalSpeed;
+    private Vector3 externalForce;
     private Vector3 targetPlayerRotation;
 
 
@@ -53,23 +52,23 @@ public class GliderController : MonoBehaviour
 
         ApplyBlowerForce();
 
-        SetTargetTranslation();
+        SetForwardMoveVector();
 
         SetTargetRotation();
 
         rb.rotation = Quaternion.Euler(targetPlayerRotation);
-        rb.velocity = forwardMoveVector + verticalSpeed;
+        rb.velocity = forwardMoveVector + externalForce;
     }
 
     void ApplyGravity()
     {
-        if (verticalSpeed.y <= -fallSpeed)
+        if (externalForce.y <= -fallSpeed)
         {
-            verticalSpeed.y = -fallSpeed;
+            externalForce.y = -fallSpeed;
         }
         else
         {
-            verticalSpeed.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
+            externalForce.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
         }
     }
 
@@ -81,7 +80,7 @@ public class GliderController : MonoBehaviour
     }
 
 
-    private void SetTargetTranslation()
+    private void SetForwardMoveVector()
     {
         forwardMoveVector = transform.forward * inputZ * moveSpeed;
     }
@@ -99,13 +98,13 @@ public class GliderController : MonoBehaviour
     {
         if (inBlower)
         {
-            if (verticalSpeed.y >= riseSpeed)
+            if (externalForce.y >= riseSpeed)
             {
-                verticalSpeed.y = riseSpeed;
+                externalForce.y = riseSpeed;
             }
             else
             {
-                verticalSpeed.y += riseSpeed * Time.deltaTime * verticalAcceleration;
+                externalForce.y += riseSpeed * Time.deltaTime * verticalAcceleration;
             }
         }
     }
@@ -121,28 +120,24 @@ public class GliderController : MonoBehaviour
         if (other.gameObject.CompareTag("AirColumn"))
         {
             inBlower = true;
-            isFalling = false;
         }
     }
+
 
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("AirColumn"))
         {
-            isFalling = false;
             inBlower = true;
             Debug.Log("In blower");
         }
     }
 
 
-
-
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("AirColumn"))
         {
-            isFalling = true;
             inBlower = false;
         }
     }
