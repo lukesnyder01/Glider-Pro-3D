@@ -17,7 +17,7 @@ public class GliderController : MonoBehaviour
     public float rotateSpeed = 90f;
 
     private float fallSpeed = 0.5f;
-    private float riseSpeed = 1.1f;
+    private float blowerSpeed = 1.1f;
     private float verticalAcceleration = 6f;
 
     private Vector3 forwardMoveVector;
@@ -29,6 +29,9 @@ public class GliderController : MonoBehaviour
 
     private Vector3 externalForce;
     private Vector3 targetPlayerRotation;
+
+    private Blower targeBlower;
+    private Vector3 blowerDirection;
 
 
     void Start()
@@ -62,13 +65,28 @@ public class GliderController : MonoBehaviour
 
     void ApplyGravity()
     {
-        if (externalForce.y <= -fallSpeed)
+            if (externalForce.y <= -fallSpeed)
+            {
+                externalForce.y = -fallSpeed;
+            }
+            else
+            {
+                externalForce.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
+            }
+    }
+
+    private void ApplyBlowerForce()
+    {
+        if (inBlower)
         {
-            externalForce.y = -fallSpeed;
-        }
-        else
-        {
-            externalForce.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
+            if (externalForce.magnitude >= blowerSpeed)
+            {
+                externalForce = externalForce.normalized * blowerSpeed;
+            }
+            else
+            {
+                externalForce += blowerSpeed * Time.deltaTime * blowerDirection * verticalAcceleration;
+            }
         }
     }
 
@@ -94,20 +112,6 @@ public class GliderController : MonoBehaviour
     }
 
 
-    private void ApplyBlowerForce()
-    {
-        if (inBlower)
-        {
-            if (externalForce.y >= riseSpeed)
-            {
-                externalForce.y = riseSpeed;
-            }
-            else
-            {
-                externalForce.y += riseSpeed * Time.deltaTime * verticalAcceleration;
-            }
-        }
-    }
     
 
     void OnTriggerEnter(Collider other)
@@ -119,6 +123,7 @@ public class GliderController : MonoBehaviour
    
         if (other.gameObject.CompareTag("AirColumn"))
         {
+            targeBlower = other.GetComponent<Blower>();
             inBlower = true;
         }
     }
@@ -128,8 +133,13 @@ public class GliderController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("AirColumn"))
         {
+            if (targeBlower == null)
+            { 
+                targeBlower = other.GetComponent<Blower>();
+            }
+
             inBlower = true;
-            Debug.Log("In blower");
+            blowerDirection = targeBlower.blowerDirection;
         }
     }
 
@@ -138,6 +148,7 @@ public class GliderController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("AirColumn"))
         {
+            targeBlower = null;
             inBlower = false;
         }
     }

@@ -9,7 +9,6 @@ public class Blower : MonoBehaviour
     void Start()
     {
         blowerDirection = transform.forward;
-        Debug.Log(blowerDirection);
     }
 
 
