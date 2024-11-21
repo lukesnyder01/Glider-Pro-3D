@@ -17,8 +17,8 @@ public class GliderController : MonoBehaviour
     public float rotateSpeed = 90f;
 
     private float fallSpeed = 0.5f;
-    private float blowerSpeed = 1.1f;
-    private float verticalAcceleration = 6f;
+    private float blowerSpeed = 1.2f;
+    private float blowerAcceleration = 7f;
 
     private Vector3 forwardMoveVector;
 
@@ -71,7 +71,7 @@ public class GliderController : MonoBehaviour
             }
             else
             {
-                externalForce.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
+                externalForce.y -= fallSpeed * Time.deltaTime * blowerAcceleration;
             }
     }
 
@@ -79,13 +79,23 @@ public class GliderController : MonoBehaviour
     {
         if (inBlower)
         {
+            Debug.Log("in blower " + externalForce);
+
             if (externalForce.magnitude >= blowerSpeed)
             {
                 externalForce = externalForce.normalized * blowerSpeed;
             }
             else
             {
-                externalForce += blowerSpeed * Time.deltaTime * blowerDirection * verticalAcceleration;
+                externalForce += blowerSpeed * Time.deltaTime * blowerDirection * blowerAcceleration;
+            }
+        }
+        else
+        {
+            // Gradually reduce the blower force if exiting the blower
+            if (externalForce.magnitude > 0.1f)
+            {
+                externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.deltaTime * blowerAcceleration);
             }
         }
     }
@@ -149,6 +159,7 @@ public class GliderController : MonoBehaviour
         if (other.gameObject.CompareTag("AirColumn"))
         {
             targeBlower = null;
+            blowerDirection = Vector3.zero;
             inBlower = false;
         }
     }
