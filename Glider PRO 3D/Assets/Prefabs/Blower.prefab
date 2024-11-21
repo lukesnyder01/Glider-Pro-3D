@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3638121764435156087}
   - component: {fileID: 2716344423529742650}
   - component: {fileID: 6890431795361374549}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Blower Grate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 8696672866673384905}
   - component: {fileID: 5514682569705983067}
   - component: {fileID: 3814906754234696962}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Blower
   m_TagString: AirColumn
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 9179186053278890270}
   - component: {fileID: 9179186053278890241}
   - component: {fileID: 4135452752153594280}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Blower Air Column
   m_TagString: AirColumn
   m_Icon: {fileID: 0}
