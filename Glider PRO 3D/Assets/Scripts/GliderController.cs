@@ -26,6 +26,7 @@ public class GliderController : MonoBehaviour
     private float inputZ;
 
     private bool isFalling = true;
+    private bool inBlower = false;
 
     private Vector3 verticalSpeed;
     private Vector3 targetPlayerRotation;
@@ -48,7 +49,9 @@ public class GliderController : MonoBehaviour
 
     void FixedUpdate()
     {
-        SetVerticalSpeed();
+        ApplyGravity();
+
+        ApplyBlowerForce();
 
         SetTargetTranslation();
 
@@ -56,6 +59,18 @@ public class GliderController : MonoBehaviour
 
         rb.rotation = Quaternion.Euler(targetPlayerRotation);
         rb.velocity = forwardMoveVector + verticalSpeed;
+    }
+
+    void ApplyGravity()
+    {
+        if (verticalSpeed.y <= -fallSpeed)
+        {
+            verticalSpeed.y = -fallSpeed;
+        }
+        else
+        {
+            verticalSpeed.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
+        }
     }
 
 
@@ -80,20 +95,9 @@ public class GliderController : MonoBehaviour
     }
 
 
-    private void SetVerticalSpeed()
+    private void ApplyBlowerForce()
     {
-        if (isFalling)
-        {
-            if (verticalSpeed.y <= -fallSpeed)
-            {
-                verticalSpeed.y = -fallSpeed;
-            }
-            else
-            {
-                verticalSpeed.y -= fallSpeed * Time.deltaTime * verticalAcceleration;
-            }
-        }
-        else if (!isFalling)
+        if (inBlower)
         {
             if (verticalSpeed.y >= riseSpeed)
             {
@@ -116,6 +120,7 @@ public class GliderController : MonoBehaviour
    
         if (other.gameObject.CompareTag("AirColumn"))
         {
+            inBlower = true;
             isFalling = false;
         }
     }
@@ -125,6 +130,8 @@ public class GliderController : MonoBehaviour
         if (other.gameObject.CompareTag("AirColumn"))
         {
             isFalling = false;
+            inBlower = true;
+            Debug.Log("In blower");
         }
     }
 
@@ -136,6 +143,7 @@ public class GliderController : MonoBehaviour
         if (other.gameObject.CompareTag("AirColumn"))
         {
             isFalling = true;
+            inBlower = false;
         }
     }
 
