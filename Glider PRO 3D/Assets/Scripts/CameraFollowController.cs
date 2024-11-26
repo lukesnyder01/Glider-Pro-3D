@@ -12,18 +12,26 @@ public class CameraFollowController : MonoBehaviour
     public Transform cameraMoveTarget;
 
     private Quaternion currentRotation;
-    private bool isFreeLookMode = false; // Toggle for free look mode
+    private bool freeLook = false; // Toggle for free look mode
     private Vector2 rotationInput; // Stores mouse movement for free look
 
     void Update()
     {
-        // Toggle free look mode on key press (e.g., 'F')
+        // Toggle free look mode
         if (Input.GetKeyDown(KeyCode.F))
         {
-            isFreeLookMode = !isFreeLookMode;
+            freeLook = !freeLook;
+
+            // Set the rotation input to match the current camera's rotation
+            if (freeLook)
+            {
+                Vector3 currentEulerAngles = transform.rotation.eulerAngles;
+                rotationInput.x = currentEulerAngles.y;
+                rotationInput.y = currentEulerAngles.x;
+            }
         }
 
-        if (isFreeLookMode)
+        if (freeLook)
         {
             FreeLook();
         }
@@ -36,12 +44,14 @@ public class CameraFollowController : MonoBehaviour
 
     private void LookAtPlayer()
     {
+        // Smoothly rotates the camera to look towards the player
         Quaternion targetLookRotation = Quaternion.LookRotation(player.position - transform.position);
         transform.rotation = Quaternion.Slerp(currentRotation, targetLookRotation, Time.deltaTime * cameraRotationSpeed);
     }
 
     private void MoveCamera()
     {
+        // Smoothly moves the camera towards the move target
         transform.position = Vector3.Lerp(transform.position, cameraMoveTarget.position, Time.deltaTime * cameraMoveSpeed);
     }
 
