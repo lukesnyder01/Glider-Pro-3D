@@ -33,6 +33,8 @@ public class GliderController : MonoBehaviour
     private Blower targeBlower;
     private Vector3 blowerDirection;
 
+    public bool controlsEnabled = true;
+
 
     void Start()
     {
@@ -45,6 +47,11 @@ public class GliderController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            controlsEnabled = !controlsEnabled;
+        }
+
         HandlePlayerInput();
     }
 
@@ -79,8 +86,6 @@ public class GliderController : MonoBehaviour
     {
         if (inBlower)
         {
-            Debug.Log("in blower " + externalForce);
-
             if (externalForce.magnitude >= blowerSpeed)
             {
                 externalForce = externalForce.normalized * blowerSpeed;
@@ -103,9 +108,13 @@ public class GliderController : MonoBehaviour
 
     private void HandlePlayerInput()
     {
-        inputZ = Input.GetAxis("Vertical");
-        inputX = Input.GetAxis("Horizontal");
+        if (controlsEnabled)
+        {
+            inputZ = Input.GetAxis("Vertical");
+            inputX = Input.GetAxis("Horizontal");
+        }
     }
+
 
 
     private void SetForwardMoveVector()
