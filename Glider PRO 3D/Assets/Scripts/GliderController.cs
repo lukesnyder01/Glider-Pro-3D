@@ -9,6 +9,8 @@ public class GliderController : MonoBehaviour
 
     public Transform player;
 
+
+    private CharacterController controller;
     private Rigidbody rb;
 
     public float moveSpeed = 10f;
@@ -28,10 +30,11 @@ public class GliderController : MonoBehaviour
     private Vector3 externalForce;
     private Vector3 targetPlayerRotation;
 
-    private Blower targetBlower;
+    private Blower targeBlower;
     private Vector3 blowerDirection;
 
     public bool controlsEnabled = true;
+
 
     void Start()
     {
@@ -39,8 +42,8 @@ public class GliderController : MonoBehaviour
         respawnRotation = transform.rotation;
 
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true; // Make Rigidbody Kinematic
     }
+
 
     void Update()
     {
@@ -50,28 +53,36 @@ public class GliderController : MonoBehaviour
         }
 
         HandlePlayerInput();
+    }
 
+
+    void FixedUpdate()
+    {
         ApplyGravity();
+
         ApplyBlowerForce();
+
         SetForwardMoveVector();
+
         SetTargetRotation();
 
-        // Update position and rotation manually
-        transform.position += (forwardMoveVector + externalForce) * Time.deltaTime;
-        transform.rotation = Quaternion.Euler(targetPlayerRotation);
+        rb.rotation = Quaternion.Euler(targetPlayerRotation);
+        rb.velocity = forwardMoveVector + externalForce;
     }
+
 
     void ApplyGravity()
     {
-        if (externalForce.y <= -fallSpeed)
-        {
-            externalForce.y = -fallSpeed;
-        }
-        else
-        {
-            externalForce.y -= fallSpeed * Time.deltaTime * blowerAcceleration;
-        }
+            if (externalForce.y <= -fallSpeed)
+            {
+                externalForce.y = -fallSpeed;
+            }
+            else
+            {
+                externalForce.y -= fallSpeed * Time.fixedDeltaTime * blowerAcceleration;
+            }
     }
+
 
     private void ApplyBlowerForce()
     {
@@ -83,7 +94,7 @@ public class GliderController : MonoBehaviour
             }
             else
             {
-                externalForce += blowerSpeed * Time.deltaTime * blowerDirection * blowerAcceleration;
+                externalForce += blowerSpeed * Time.fixedDeltaTime * blowerDirection * blowerAcceleration;
             }
         }
         else
@@ -91,10 +102,11 @@ public class GliderController : MonoBehaviour
             // Gradually reduce the blower force if exiting the blower
             if (externalForce.magnitude > 0.1f)
             {
-                externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.deltaTime * blowerAcceleration);
+                externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.fixedDeltaTime * blowerAcceleration);
             }
         }
     }
+
 
     private void HandlePlayerInput()
     {
@@ -105,17 +117,22 @@ public class GliderController : MonoBehaviour
         }
     }
 
+
     private void SetForwardMoveVector()
     {
         forwardMoveVector = transform.forward * inputZ * moveSpeed;
     }
 
+
     private void SetTargetRotation()
     {
-        float currentPlayerYRot = transform.eulerAngles.y;
-        float rotateAmount = inputX * rotateSpeed * Time.deltaTime;
-        targetPlayerRotation = new Vector3(0, currentPlayerYRot + rotateAmount, 0);
+        float currentPlayerYRot = player.eulerAngles.y;
+        float rotateAmount = inputX * rotateSpeed * Time.fixedDeltaTime;
+        targetPlayerRotation = new Vector3(0, currentPlayerYRot += rotateAmount, 0);
     }
+
+
+    
 
     void OnTriggerEnter(Collider other)
     {
@@ -123,37 +140,40 @@ public class GliderController : MonoBehaviour
         {
             collectable.Collect();
         }
-
+   
         if (other.gameObject.CompareTag("AirColumn"))
         {
-            targetBlower = other.GetComponent<Blower>();
+            targeBlower = other.GetComponent<Blower>();
             inBlower = true;
         }
     }
+
 
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("AirColumn"))
         {
-            if (targetBlower == null)
-            {
-                targetBlower = other.GetComponent<Blower>();
+            if (targeBlower == null)
+            { 
+                targeBlower = other.GetComponent<Blower>();
             }
 
             inBlower = true;
-            blowerDirection = targetBlower.blowerDirection;
+            blowerDirection = targeBlower.blowerDirection;
         }
     }
+
 
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("AirColumn"))
         {
-            targetBlower = null;
+            targeBlower = null;
             blowerDirection = Vector3.zero;
             inBlower = false;
         }
     }
+
 
     void OnCollisionEnter(Collision other)
     {
@@ -163,10 +183,17 @@ public class GliderController : MonoBehaviour
         }
     }
 
+
     void KillGlider()
     {
+        rb.velocity = Vector3.zero;
+        rb.rotation = respawnRotation;
         transform.position = respawnPosition;
-        transform.rotation = respawnRotation;
-        externalForce = Vector3.zero;
+
+
+
+        //Destroy(gameObject);
     }
+
+
 }
