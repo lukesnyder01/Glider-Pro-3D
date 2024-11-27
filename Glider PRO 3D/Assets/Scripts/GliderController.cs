@@ -70,6 +70,7 @@ public class GliderController : MonoBehaviour
         rb.velocity = forwardMoveVector + externalForce;
     }
 
+
     void ApplyGravity()
     {
             if (externalForce.y <= -fallSpeed)
@@ -78,9 +79,10 @@ public class GliderController : MonoBehaviour
             }
             else
             {
-                externalForce.y -= fallSpeed * Time.deltaTime * blowerAcceleration;
+                externalForce.y -= fallSpeed * Time.fixedDeltaTime * blowerAcceleration;
             }
     }
+
 
     private void ApplyBlowerForce()
     {
@@ -92,7 +94,7 @@ public class GliderController : MonoBehaviour
             }
             else
             {
-                externalForce += blowerSpeed * Time.deltaTime * blowerDirection * blowerAcceleration;
+                externalForce += blowerSpeed * Time.fixedDeltaTime * blowerDirection * blowerAcceleration;
             }
         }
         else
@@ -100,7 +102,7 @@ public class GliderController : MonoBehaviour
             // Gradually reduce the blower force if exiting the blower
             if (externalForce.magnitude > 0.1f)
             {
-                externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.deltaTime * blowerAcceleration);
+                externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.fixedDeltaTime * blowerAcceleration);
             }
         }
     }
@@ -114,7 +116,6 @@ public class GliderController : MonoBehaviour
             inputX = Input.GetAxis("Horizontal");
         }
     }
-
 
 
     private void SetForwardMoveVector()
