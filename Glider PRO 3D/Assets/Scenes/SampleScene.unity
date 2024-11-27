@@ -3243,7 +3243,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2388
+  m_Name: pb_Mesh-23072
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3456,7 +3456,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2374
+  m_Name: pb_Mesh-23058
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4895,7 +4895,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28660
+  m_Name: pb_Mesh63258
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35262,7 +35262,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2108
+  m_Name: pb_Mesh-22792
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -43816,8 +43816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f440dbf70b2145848a05c548ce6d5a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraRotationSpeed: 10
-  cameraMoveSpeed: 10
+  cameraRotationSpeed: 5
+  cameraMoveSpeed: 5
   freeLookSensitivity: 2
   player: {fileID: 366967021}
   cameraMoveTarget: {fileID: 1852468615}
@@ -51580,7 +51580,7 @@ PrefabInstance:
       objectReference: {fileID: 1852468615}
     - target: {fileID: 366967025, guid: 09ef6d405b6dbe04692ab0405ffa0737, type: 3}
       propertyPath: targetMoveSpeed
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 366967026, guid: 09ef6d405b6dbe04692ab0405ffa0737, type: 3}
       propertyPath: m_Enabled
@@ -51669,6 +51669,10 @@ PrefabInstance:
     - target: {fileID: 6150597286450573299, guid: 09ef6d405b6dbe04692ab0405ffa0737, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150597286450573309, guid: 09ef6d405b6dbe04692ab0405ffa0737, type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 6150597286450573309, guid: 09ef6d405b6dbe04692ab0405ffa0737, type: 3}
       propertyPath: m_IsKinematic

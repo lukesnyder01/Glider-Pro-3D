@@ -20,6 +20,8 @@ public class GliderController : MonoBehaviour
     private float blowerSpeed = 1.1f;
     private float blowerAcceleration = 7f;
 
+    private float exitBlowerAccel = 2f;
+
     private Vector3 forwardMoveVector;
 
     private float inputX;
@@ -66,8 +68,9 @@ public class GliderController : MonoBehaviour
 
         SetTargetRotation();
 
-        rb.rotation = Quaternion.Euler(targetPlayerRotation);
         rb.velocity = forwardMoveVector + externalForce;
+        rb.MoveRotation(Quaternion.Euler(targetPlayerRotation));
+        Physics.SyncTransforms();
     }
 
 
@@ -102,7 +105,7 @@ public class GliderController : MonoBehaviour
             // Gradually reduce the blower force if exiting the blower
             if (externalForce.magnitude > 0.1f)
             {
-                externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.fixedDeltaTime * blowerAcceleration);
+                externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.fixedDeltaTime * exitBlowerAccel);
             }
         }
     }
@@ -126,13 +129,12 @@ public class GliderController : MonoBehaviour
 
     private void SetTargetRotation()
     {
-        float currentPlayerYRot = player.eulerAngles.y;
         float rotateAmount = inputX * rotateSpeed * Time.fixedDeltaTime;
-        targetPlayerRotation = new Vector3(0, currentPlayerYRot += rotateAmount, 0);
+        targetPlayerRotation = transform.eulerAngles + new Vector3(0, rotateAmount, 0);
     }
 
 
-    
+
 
     void OnTriggerEnter(Collider other)
     {

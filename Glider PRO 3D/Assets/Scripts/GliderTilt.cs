@@ -14,14 +14,9 @@ public class GliderTilt : MonoBehaviour
     private float distanceFromGround;
 
 
-    void FixedUpdate()
-    {
-        FindDistanceFromGround();
-    }
-
-
     void Update()
     {
+        FindDistanceFromGround();
         TiltGlider();
     }
 

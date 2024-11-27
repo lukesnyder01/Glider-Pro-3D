@@ -8,7 +8,7 @@ public class MoveCameraTarget : MonoBehaviour
     public Transform cameraTarget;
 
     [SerializeField]
-    private float targetMoveSpeed = 20f;
+    private float targetMoveSpeed = 10f;
 
     private float castDist = 1f;
     private float castRadius = 0.1f;
@@ -23,7 +23,8 @@ public class MoveCameraTarget : MonoBehaviour
         castDist = Vector3.Distance(transform.position, cameraIdealPosition.position);
     }
 
-    void FixedUpdate()
+
+    void Update()
     {
         castDirection = (cameraIdealPosition.position - transform.position).normalized;
 
@@ -37,11 +38,7 @@ public class MoveCameraTarget : MonoBehaviour
         {
             hitPosition = cameraIdealPosition.position;
         }
-    }
 
-
-    void Update()
-    {
         cameraTarget.position = Vector3.Lerp(cameraTarget.position, hitPosition, Time.deltaTime * targetMoveSpeed);
     }
 
