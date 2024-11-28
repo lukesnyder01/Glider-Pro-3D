@@ -73,6 +73,15 @@ public class GliderController : MonoBehaviour
         Physics.SyncTransforms();
     }
 
+    public void DisableControls()
+    {
+        controlsEnabled = false;
+    }
+
+    public void EnableControls()
+    {
+        controlsEnabled = true;
+    }
 
     void ApplyGravity()
     {
@@ -117,6 +126,11 @@ public class GliderController : MonoBehaviour
         {
             inputZ = Input.GetAxis("Vertical");
             inputX = Input.GetAxis("Horizontal");
+        }
+        else
+        {
+            inputZ = 0;
+            inputX = 0;
         }
     }
 
