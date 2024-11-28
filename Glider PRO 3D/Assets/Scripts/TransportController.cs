@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimateTransport : MonoBehaviour
+public class TransportController : MonoBehaviour
 {
     public Transform target;
     Transform glider;
     GliderController gliderController;
 
     bool animationPlaying = false;
-    private float moveSpeed = 0.6f;
-    private float rotationSpeed = 2f;
+    private float moveSpeed = 0.8f;
+    private float rotationSpeed = 4f;
 
     void Start()
     {
@@ -24,19 +24,16 @@ public class AnimateTransport : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(MoveGliderToTransport());
-
-
+            if (animationPlaying == false)
+            {
+                StartCoroutine(MoveGliderToTransport());
+            }
         }
-    }
-
-    void StopAnimation()
-    {
-
     }
 
     private IEnumerator MoveGliderToTransport()
     {
+        animationPlaying = true;
         gliderController.DisableControls();
 
         // We move the glider in two stages
@@ -59,9 +56,6 @@ public class AnimateTransport : MonoBehaviour
             yield return null;
         }
 
-        glider.position = centerPosition;
-        glider.rotation = targetRotation;
-
         // Second, we  move the glider to the target position
 
         while (Vector3.Distance(glider.position, target.position) > 0.01f)
@@ -70,6 +64,10 @@ public class AnimateTransport : MonoBehaviour
                 glider.position,
                 target.position,
                 moveSpeed * Time.deltaTime);
+            glider.rotation = Quaternion.Slerp(
+                glider.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime);
 
             yield return null;
         }
