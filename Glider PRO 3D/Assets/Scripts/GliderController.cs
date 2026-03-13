@@ -35,7 +35,11 @@ public class GliderController : MonoBehaviour
     private Blower targeBlower;
     private Vector3 blowerDirection;
 
+    public float blowerCheckRadius = 0.2f;
+    public LayerMask blowerLayerMask;
+
     public bool controlsEnabled = true;
+
 
 
     void Start()
@@ -60,6 +64,10 @@ public class GliderController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log(inBlower);
+
+        CheckForBlower();
+
         ApplyGravity();
 
         ApplyBlowerForce();
@@ -68,7 +76,7 @@ public class GliderController : MonoBehaviour
 
         SetTargetRotation();
 
-        rb.velocity = forwardMoveVector + externalForce;
+        rb.linearVelocity = forwardMoveVector + externalForce;
         rb.MoveRotation(Quaternion.Euler(targetPlayerRotation));
         Physics.SyncTransforms();
     }
@@ -82,6 +90,29 @@ public class GliderController : MonoBehaviour
     {
         controlsEnabled = true;
     }
+
+    void CheckForBlower()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, blowerCheckRadius, blowerLayerMask);
+
+        if (hitColliders.Length > 0)
+        {
+            Blower blower = hitColliders[0].GetComponent<Blower>();
+            if (blower != null)
+            {
+                targeBlower = blower;
+                blowerDirection = blower.blowerDirection;
+                inBlower = true;
+                Debug.Log($"Found blower via physics check: {blower.gameObject.name}");
+                return;
+            }
+        }
+
+        inBlower = false;
+        targeBlower = null;
+        blowerDirection = Vector3.zero;
+    }
+
 
     void ApplyGravity()
     {
@@ -149,45 +180,13 @@ public class GliderController : MonoBehaviour
 
 
 
-
     void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out ICollectable collectable))
         {
             collectable.Collect();
         }
-   
-        if (other.gameObject.CompareTag("AirColumn"))
-        {
-            targeBlower = other.GetComponent<Blower>();
-            inBlower = true;
-        }
-    }
-
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("AirColumn"))
-        {
-            if (targeBlower == null)
-            { 
-                targeBlower = other.GetComponent<Blower>();
-            }
-
-            inBlower = true;
-            blowerDirection = targeBlower.blowerDirection;
-        }
-    }
-
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("AirColumn"))
-        {
-            targeBlower = null;
-            blowerDirection = Vector3.zero;
-            inBlower = false;
-        }
+ 
     }
 
 
@@ -202,13 +201,9 @@ public class GliderController : MonoBehaviour
 
     void KillGlider()
     {
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         rb.rotation = respawnRotation;
         transform.position = respawnPosition;
-
-
-
-        //Destroy(gameObject);
     }
 
 

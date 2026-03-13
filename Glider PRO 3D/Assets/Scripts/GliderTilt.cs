@@ -13,6 +13,7 @@ public class GliderTilt : MonoBehaviour
 
     private float distanceFromGround;
 
+    public LayerMask groundLayerMask;
 
     void Update()
     {
@@ -29,7 +30,7 @@ public class GliderTilt : MonoBehaviour
         Vector3 castDirection = -Vector3.up;
         float castDist = 10f;
 
-        if (Physics.SphereCast(transform.position, castRadius, castDirection, out hit, castDist))
+        if (Physics.SphereCast(transform.position, castRadius, castDirection, out hit, castDist, groundLayerMask))
         {
             distanceFromGround = hit.distance;
         }
