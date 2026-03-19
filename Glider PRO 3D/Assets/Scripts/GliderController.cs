@@ -64,8 +64,6 @@ public class GliderController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(inBlower);
-
         CheckForBlower();
 
         ApplyGravity();
@@ -103,7 +101,6 @@ public class GliderController : MonoBehaviour
                 targeBlower = blower;
                 blowerDirection = blower.blowerDirection;
                 inBlower = true;
-                Debug.Log($"Found blower via physics check: {blower.gameObject.name}");
                 return;
             }
         }

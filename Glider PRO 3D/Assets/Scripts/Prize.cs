@@ -7,17 +7,15 @@ public class Prize : MonoBehaviour, ICollectable
 {
     public bool collected = false;
 
-    public GameObject player;
-
     public PlayerStats playerStats;
 
     public AudioClip collectSound;
 
 
-    void Awake()
+    void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        playerStats = player.GetComponent<PlayerStats>();
+        playerStats = FindAnyObjectByType<PlayerStats>();
+        Debug.Log(playerStats);
     }
 
 
