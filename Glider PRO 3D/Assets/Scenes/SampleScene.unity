@@ -17999,6 +17999,90 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3828221491711831545, guid: 30319fbf49050f646810e5a099d8062a, type: 3}
   m_PrefabInstance: {fileID: 713306877}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &716800588
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1010914778087579410, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_Name
+      value: Transport Controller
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010914778087579410, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.518
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.93965024
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.34213662
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 40.014
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479361852286171224, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2291328806540518114, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_Name
+      value: Mailbox (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031536250608686817, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+--- !u!114 &716800589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4409402935228024989, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+  m_PrefabInstance: {fileID: 716800588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28d3d9504f5fac49921831aa4204baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &732705868
 GameObject:
   m_ObjectHideFlags: 0
@@ -52227,6 +52311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mailbox
       objectReference: {fileID: 0}
+    - target: {fileID: 4409402935228024989, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
+      propertyPath: targetMailbox
+      value: 
+      objectReference: {fileID: 716800589}
     - target: {fileID: 8031536250608686817, guid: 538c2e308c442b64fb6ae4b83eeaafbe, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -55320,6 +55408,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 798665879}
   - {fileID: 4451404930336896687}
+  - {fileID: 716800588}
   - {fileID: 6150597287523618235}
   - {fileID: 356716097}
   - {fileID: 1662043063}
