@@ -198,9 +198,14 @@ public class GliderController : MonoBehaviour
 
     void KillGlider()
     {
+        TeleportGlider(respawnPosition, respawnRotation);
+    }
+
+    public void TeleportGlider(Vector3 pos, Quaternion rot)
+    {
         rb.linearVelocity = Vector3.zero;
-        rb.rotation = respawnRotation;
-        transform.position = respawnPosition;
+        rb.rotation = rot;
+        transform.position = pos;
     }
 
 
